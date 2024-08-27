@@ -6,9 +6,12 @@
     <Nullable>enable</Nullable>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Title>Ethik.Utility</Title>
-    <Description>A generic class for api result of generic types.</Description>
+    <Description>This will contain utility ies hold untilites that can be used in other projects</Description>
     <PackageProjectUrl></PackageProjectUrl>
     <Version>1.0.0</Version>
+  <Authors>YourName</Authors>
+  <Description>YourPackageDescription</Description>    <Authors>YourName</Authors>
+    Mehedi Rahaamman
   </PropertyGroup>
 
   <ItemGroup>
