@@ -1,1 +1,1 @@
-# Ethik
+The Utility NuGet Package provides essential utilities for .NET applications, focusing on streamlined error handling and standardized API responses/models. This package is designed to help developers with premade tools and utilities that can be used in any projects and errors efficiently, with a focus on configurability and ease of integration.
