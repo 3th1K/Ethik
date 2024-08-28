@@ -49,6 +49,13 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<JwtTokenService>();
         return services;
     }
+
+    public static IServiceCollection AddGlobalExceptionHandler(this IServiceCollection services)
+    {
+        services.AddExceptionHandler<GlobalExceptionHandler>();
+        services.AddProblemDetails();
+        return services;
+    }
 }
 
 

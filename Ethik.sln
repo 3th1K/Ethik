@@ -5,6 +5,8 @@ VisualStudioVersion = 17.9.34723.18
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ethik.Utility", "Ethik.Utility\Ethik.Utility.csproj", "{05B2C30D-01DF-4AF4-9A46-1C12F78C94E6}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApplication1", "..\..\MyProjects\WebApplication1\WebApplication1.csproj", "{BB87A6CA-E53B-4C63-A2F7-7B6EC146937E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,10 +17,10 @@ Global
 		{05B2C30D-01DF-4AF4-9A46-1C12F78C94E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{05B2C30D-01DF-4AF4-9A46-1C12F78C94E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{05B2C30D-01DF-4AF4-9A46-1C12F78C94E6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{671E17F3-BC4D-4742-BC78-DC544F4A7BA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{671E17F3-BC4D-4742-BC78-DC544F4A7BA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{671E17F3-BC4D-4742-BC78-DC544F4A7BA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{671E17F3-BC4D-4742-BC78-DC544F4A7BA7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BB87A6CA-E53B-4C63-A2F7-7B6EC146937E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB87A6CA-E53B-4C63-A2F7-7B6EC146937E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB87A6CA-E53B-4C63-A2F7-7B6EC146937E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB87A6CA-E53B-4C63-A2F7-7B6EC146937E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
