@@ -6,7 +6,7 @@ namespace Ethik.Utility.Extensions;
 
 public static class DbSetExtensions
 {
-    public static async Task<PagedList<T>> GetPaginatedDataAsync<T>(
+    public static async Task<PagedList<T>> GetPagedDataAsync<T>(
         this DbSet<T> dbSet,
         Expression<Func<T, bool>>? filter = null,
         Expression<Func<T, object>>? order = null,
