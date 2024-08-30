@@ -8,7 +8,7 @@
     <Title>Ethik.Utility</Title>
     <Description>The Utility NuGet Package provides essential utilities for .NET applications, focusing on streamlined error handling and standardized API responses/models. This package is designed to help developers with premade tools and utilities that can be used in any projects and errors efficiently, with a focus on configurability and ease of integration.</Description>
     <PackageProjectUrl>https://www.nuget.org/packages/Ethik.Utility</PackageProjectUrl>
-    <Version>1.0.5.1</Version>
+    <Version>1.0.5.2</Version>
 	  <Authors>Mehedi Rahaman</Authors>
   </PropertyGroup>
 
@@ -16,6 +16,7 @@
     <PackageReference Include="FluentValidation" Version="11.9.2" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.8" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.8" />
     <PackageReference Include="Serilog" Version="4.0.1" />
   </ItemGroup>
 
