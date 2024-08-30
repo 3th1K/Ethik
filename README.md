@@ -42,17 +42,17 @@ The `Ethik.Utility` NuGet package provides a set of utilities for handling commo
     - **`AddSwaggerGenWithAuth`**: Configures Swagger for API documentation with JWT bearer token authentication support.
 ### **JWT**
    - **`JWT Token Generation`**: Generates JWT tokens with customizable claims, including user details and roles.
-    - **`Token Validation`**: Validates JWT tokens with support for issuer, audience, and expiration checks.
-    - **`Token Expiry Configuration`**: Configurable token expiration time to control session duration.
-    - **`Bearer Authentication`**: Configures JWT bearer authentication scheme for ASP.NET Core applications.
-    - **`Token Details Retrieval`**: Extracts and returns token details like expiration and token type.
-    - **`Singleton JWT Service`**: Provides a singleton service (JwtTokenService) for generating and validating tokens.
-    - **`Custom Claims Support`**: Allows for the inclusion of custom claims in the generated JWT tokens.
-    - **`Configuration-based Setup`**: Easy configuration of JWT settings (SecretKey, Issuer, Audience) through app settings.
+   - **`Token Validation`**: Validates JWT tokens with support for issuer, audience, and expiration checks.
+   - **`Token Expiry Configuration`**: Configurable token expiration time to control session duration.
+   - **`Bearer Authentication`**: Configures JWT bearer authentication scheme for ASP.NET Core applications.
+   - **`Token Details Retrieval`**: Extracts and returns token details like expiration and token type.
+   - **`Singleton JWT Service`**: Provides a singleton service (JwtTokenService) for generating and validating tokens.
+   - **`Custom Claims Support`**: Allows for the inclusion of custom claims in the generated JWT tokens.
+   - **`Configuration-based Setup`**: Easy configuration of JWT settings (SecretKey, Issuer, Audience) through app settings.
 ### **Password**
    - **`Password Hashing`**: Uses the PBKDF2 algorithm to hash passwords with a randomly generated salt.
-    - **`Password Verification`**: Verifies that a provided plaintext password matches a previously hashed password.
-    - **`Security`**: Utilizes a 128-bit salt and a 256-bit hash for enhanced security.
+   - **`Password Verification`**: Verifies that a provided plaintext password matches a previously hashed password.
+   - **`Security`**: Utilizes a 128-bit salt and a 256-bit hash for enhanced security.
 
 ## Installation
 You can install the package via NuGet Package Manager or by running the following command in the Package Manager Console:
