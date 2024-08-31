@@ -4,10 +4,12 @@ using Ethik.Utility.Jwt.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Protocols.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
+using ILogger = Serilog.ILogger;
 
 namespace Ethik.Utility.Extensions;
 
@@ -17,14 +19,21 @@ namespace Ethik.Utility.Extensions;
 public static class ServiceCollectionExtensions
 {
     /// <summary>
-    /// Adds and initializes the ApiErrorCacheService to the service collection.
+    /// Adds and initializes the ApiErrorConfigService to the service collection.
     /// </summary>
     /// <param name="services">The IServiceCollection to add the service to.</param>
     /// <param name="jsonFilePath">The file path to the JSON file used for error caching.</param>
     /// <returns>The updated IServiceCollection.</returns>
-    public static IServiceCollection AddErrorCache(this IServiceCollection services, string jsonFilePath)
+    public static IServiceCollection AddErrorConfig(this IServiceCollection services, string jsonFilePath)
     {
-        ApiErrorCacheService.Initialize(jsonFilePath);
+        services.AddSingleton(sp =>
+        {
+            var logger = sp.GetRequiredService<ILogger>();
+            return new ApiErrorConfigService(logger, jsonFilePath);
+        });
+
+        // Register the hosted service
+        services.AddHostedService<ApiErrorConfigServiceInitializer>();
         return services;
     }
 

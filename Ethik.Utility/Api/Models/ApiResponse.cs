@@ -110,7 +110,7 @@ namespace Ethik.Utility.Api.Models
         /// <returns>An instance of <see cref="ApiResponse{T}"/> representing a failed response with error details.</returns>
         public static ApiResponse<T> Failure(string errorKey, string message, int statusCode = StatusCodes.Status500InternalServerError)
         {
-            var apiError = ApiErrorCacheService.GetError(errorKey);
+            var apiError = ApiErrorConfigService.GetError(errorKey);
             var response = new ApiResponse<T>
             {
                 Status = ApiResponseStatus.Failure,

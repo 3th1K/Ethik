@@ -30,7 +30,7 @@ The `Ethik.Utility` NuGet package provides a set of utilities for handling commo
 - **`API Responses`**: Consistent API response format for success and failure scenarios.
 - **`Service Collection Extensions`**:
   - **`Error Caching`**:
-    - **`AddErrorCache`**: Adds and initializes `ApiErrorCacheService` to manage error responses with configuration from a JSON file.
+    - **`AddErrorConfig`**: Adds and initializes `ApiErrorConfigService` to manage error responses with configuration from a JSON file.
   - **`JWT Configuration`**:
     - **`AddJwtHelper`**: Configures JWT authentication including:
       - **Token Validation**: Validates issuer, audience, and signing key.
@@ -99,11 +99,11 @@ Represents detailed information about an exception.
 - `StackTrace`: The stack trace of the exception.
 - `InnerException`: The details of the inner exception, if any.
 
-### `ApiErrorCacheService` Internal class
+### `ApiErrorConfigService` Internal class
 ## Example Usage
 ```csharp 
 // Program.cs
-builder.Services.AddErrorCache("MyApiErrors.json");
+builder.Services.AddErrorConfig("MyApiErrors.json");
 ```
 ```json
 // MyApiErrors.json
@@ -318,8 +318,8 @@ Provides extension methods for configuring services in the `IServiceCollection`.
 
 #### Methods
 
-- **`AddErrorCache(IServiceCollection services, string jsonFilePath)`**:
-    - **Description**: Adds and initializes the `ApiErrorCacheService` to the service collection using a JSON file for error caching.
+- **`AddErrorConfig(IServiceCollection services, string jsonFilePath)`**:
+    - **Description**: Adds and initializes the `ApiErrorConfigService` to the service collection using a JSON file for error caching.
     - **Parameters**:
         - `services`: The `IServiceCollection` to add the service to.
         - `jsonFilePath`: The file path to the JSON file used for error caching.
@@ -327,7 +327,7 @@ Provides extension methods for configuring services in the `IServiceCollection`.
     - **Example Usage**:
       ```csharp
       // In Startup.cs or Program.cs
-      services.AddErrorCache("path/to/error-cache.json");
+      services.AddErrorConfig("path/to/error-cache.json");
       ```
 
 - **`AddJwtHelper(IServiceCollection services, IConfiguration configuration)`**:
@@ -373,7 +373,7 @@ public class Startup
     public void ConfigureServices(IServiceCollection services)
     {
         // Add and configure services
-        services.AddErrorCache("path/to/error-cache.json");
+        services.AddErrorConfig("path/to/error-cache.json");
         services.AddJwtHelper(Configuration);
         services.AddGlobalExceptionHandler();
         services.AddSwaggerGenWithAuth();

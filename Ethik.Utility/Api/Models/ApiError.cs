@@ -88,7 +88,7 @@ namespace Ethik.Utility.Api.Models
             {
                 exceptionDetails.StackTrace = exceptionString.Substring(stackTraceIndex)
                     .Split(new[] { "\r\n" }, StringSplitOptions.None)
-                    .Where(line => line.Trim().StartsWith("   at "))
+                    .Where(line => line.Trim().StartsWith("at"))
                     .Select(s => s.Trim())
                     .ToArray();
             }

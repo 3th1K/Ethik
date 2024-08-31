@@ -1,43 +1,44 @@
-﻿using System.Collections.Concurrent;
-using System.Text.Json;
-using Ethik.Utility.Api.Models;
+﻿using Ethik.Utility.Api.Models;
 using Serilog;
+using System.Collections.Concurrent;
+using System.Text.Json;
 
 namespace Ethik.Utility.Api.Services;
 
-internal static class ApiErrorCacheService
+/// <summary>
+/// Service for managing API error configurations.
+/// Loads error configurations from a JSON file and caches them for retrieval.
+/// Monitors the JSON file for changes and reloads the configuration if the file is updated.
+/// </summary>
+internal class ApiErrorConfigService
 {
-    private static readonly ILogger _logger = Log.ForContext(typeof(ApiErrorCacheService));
-    private static readonly ConcurrentDictionary<string, ApiError> _errorCache = new ConcurrentDictionary<string, ApiError>();
+    private readonly ILogger _logger;
+    private readonly string _jsonFilePath;
+    private static ConcurrentDictionary<string, ApiError> _errorCache = new ConcurrentDictionary<string, ApiError>();
     private static bool _initialized = false;
-    private static FileSystemWatcher? _fileWatcher;
+    private readonly FileSystemWatcher _fileWatcher;
+    private bool _disposed = false;
 
     /// <summary>
-    /// Initializes the ApiErrorCacheService with the specified JSON configuration file.
+    /// Initializes a new instance of the <see cref="ApiErrorConfigService"/> class.
     /// </summary>
-    /// <param name="jsonFilePath">The path to the JSON file containing the error configurations.</param>
-    /// <exception cref="ArgumentException">Thrown when the provided path is null or empty.</exception>
-    /// <exception cref="InvalidOperationException">Thrown when the service is already initialized or when there are issues reading the JSON file.</exception>
-    public static void Initialize(string jsonFilePath)
+    /// <param name="logger">The logger instance for logging information and errors.</param>
+    /// <param name="jsonFilePath">The path to the JSON file containing error configurations.</param>
+    /// <exception cref="ArgumentException">Thrown when <paramref name="jsonFilePath"/> is null or empty.</exception>
+    /// <exception cref="FileNotFoundException">Thrown when the JSON file is not found at <paramref name="jsonFilePath"/>.</exception>
+    public ApiErrorConfigService(ILogger logger, string jsonFilePath)
     {
-        if (_initialized)
-        {
-            return;
-        }
+        _logger = logger.ForContext<ApiErrorConfigService>();
+        _jsonFilePath = jsonFilePath ?? throw new ArgumentException("Path cannot be null or empty", nameof(jsonFilePath));
 
-        _logger.Information("Initializing ApiErrorCacheService");
-
-        if (string.IsNullOrEmpty(jsonFilePath))
+        if (!File.Exists(_jsonFilePath))
         {
-            throw new ArgumentException("Path cannot be null or empty", nameof(jsonFilePath));
+            throw new FileNotFoundException("Configuration file not found.", _jsonFilePath);
         }
 
         string fullPath = Path.GetFullPath(jsonFilePath);
         string directory = Path.GetDirectoryName(fullPath) ?? throw new InvalidOperationException("Could not determine the directory of the JSON file.");
         string fileName = Path.GetFileName(fullPath);
-
-        _logger.Information("Loading Error Configurations");
-        LoadErrorsFromJson(jsonFilePath);
 
         _fileWatcher = new FileSystemWatcher(directory, fileName)
         {
@@ -45,17 +46,27 @@ internal static class ApiErrorCacheService
         };
         _fileWatcher.Changed += OnChanged;
         _fileWatcher.EnableRaisingEvents = true;
+    }
 
+    /// <summary>
+    /// Initializes the service by loading error configurations from the JSON file.
+    /// Sets the service state to initialized.
+    /// </summary>
+    public void Initialize()
+    {
+        LoadErrorsFromJson(_jsonFilePath);
         _initialized = true;
     }
 
     /// <summary>
     /// Event handler triggered when the configuration file changes.
     /// Attempts to reload the error configurations with a retry mechanism.
+    /// Disables the file watcher during the reload process to prevent multiple triggers.
     /// </summary>
-    private static async void OnChanged(object sender, FileSystemEventArgs e)
+    private void OnChanged(object sender, FileSystemEventArgs e)
     {
-        _logger.Information("File change detected. Reloading Error Configurations.");
+        _logger.Information("File change detected.");
+        _fileWatcher.EnableRaisingEvents = false;
 
         bool success = false;
         int retries = 3;
@@ -64,20 +75,26 @@ internal static class ApiErrorCacheService
         {
             try
             {
-                await Task.Delay(500); // Wait for 500 ms before retrying
+                // Wait for 500 ms before retrying
+                _ = Task.Run(async () => await Task.Delay(500));
+
                 LoadErrorsFromJson(e.FullPath);
                 success = true;
             }
-            catch (IOException)
+            catch (IOException exception)
             {
                 retries--;
-                _logger.Warning("Failed to reload configurations. Retries left: {Retries}", retries);
+                _logger.Warning(exception, "Failed to reload configurations. Retries left: {Retries}", retries);
 
                 if (retries == 0)
                 {
                     _logger.Error("Exhausted all retries for reloading error configurations.");
                     throw;
                 }
+            }
+            finally
+            {
+                _fileWatcher.EnableRaisingEvents = true;
             }
         }
     }
@@ -87,8 +104,9 @@ internal static class ApiErrorCacheService
     /// </summary>
     /// <param name="jsonFilePath">The path to the JSON file.</param>
     /// <exception cref="InvalidOperationException">Thrown when the JSON file cannot be deserialized or the configuration is invalid.</exception>
-    private static void LoadErrorsFromJson(string jsonFilePath)
+    private void LoadErrorsFromJson(string jsonFilePath)
     {
+        _logger.Information("Loading Error Configurations.");
         try
         {
             var json = File.ReadAllText(jsonFilePath);
@@ -115,16 +133,16 @@ internal static class ApiErrorCacheService
     }
 
     /// <summary>
-    /// Retrieves an ApiError by its key from the cache.
+    /// Retrieves an <see cref="ApiError"/> by its key from the cache.
     /// </summary>
     /// <param name="errorKey">The key of the error to retrieve.</param>
-    /// <returns>The corresponding ApiError if found, otherwise a default unknown error.</returns>
+    /// <returns>The corresponding <see cref="ApiError"/> if found, otherwise a default unknown error.</returns>
     /// <exception cref="InvalidOperationException">Thrown when the service is not initialized.</exception>
     public static ApiError GetError(string errorKey)
     {
         if (!_initialized)
         {
-            throw new InvalidOperationException("ApiErrorCacheService is not initialized.");
+            throw new InvalidOperationException("ApiErrorConfigService is not initialized.");
         }
 
         return _errorCache.TryGetValue(errorKey, out var apiError)
@@ -136,5 +154,17 @@ internal static class ApiErrorCacheService
                 ErrorDescription = "No description available.",
                 ErrorSolution = "Contact support."
             };
+    }
+
+    /// <summary>
+    /// Disposes of the <see cref="ApiErrorConfigService"/> and performs any necessary cleanup.
+    /// </summary>
+    public void Dispose()
+    {
+        if (!_disposed)
+        {
+            _fileWatcher?.Dispose();
+            _disposed = true;
+        }
     }
 }
