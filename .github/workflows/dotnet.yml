@@ -87,10 +87,7 @@ jobs:
         dotnet-version: 8.0.x
 
     - name: Pack the project
-      run: |
-        mkdir -p ./nupkg
-        dotnet pack ${{ matrix.project }} --configuration Release --no-build --output ./nupkg
-        # Add commands to pack other projects if needed
+      run: dotnet pack ${{ matrix.project }} --configuration Release --no-build --output ./nupkg
 
     - name: Publish NuGet package
       run: dotnet nuget push "./nupkg/*.nupkg" --source "https://api.nuget.org/v3/index.json" --api-key ${{ secrets.NUGET_API_KEY }}
