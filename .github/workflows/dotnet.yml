@@ -33,7 +33,7 @@ jobs:
       run: dotnet restore ${{ matrix.project }}
       
     - name: Build
-      run: dotnet build ${{ matrix.project }} --configuration Release --no-restore
+      run: dotnet build ${{ matrix.project }}
   
   test:
     runs-on: ubuntu-latest
@@ -58,11 +58,11 @@ jobs:
       run: dotnet restore ${{ matrix.project }}
       
     - name: Build
-      run: dotnet build ${{ matrix.project }} --configuration Release --no-restore
+      run: dotnet build ${{ matrix.project }}
 
     - name: Test
       run: |
-        dotnet test ${{ matrix.project }} --configuration Release --no-build --collect:"XPlat Code Coverage"
+        dotnet test ${{ matrix.project }} --no-build --collect:"XPlat Code Coverage"
         # Move the coverage report to a known location
         mkdir -p coverage
         cp $(find . -name '*.xml') coverage/
@@ -88,6 +88,9 @@ jobs:
 
     - name: Restore dependencies
       run: dotnet restore ${{ matrix.project }}
+
+    - name: Build
+      run: dotnet build ${{ matrix.project }} --configuration Release --no-restore
 
     - name: Pack the project
       run: dotnet pack ${{ matrix.project }} --configuration Release --no-build --output ./nupkg
