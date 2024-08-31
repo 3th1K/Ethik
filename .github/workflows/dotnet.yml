@@ -18,7 +18,32 @@ jobs:
       matrix:
         project:
           # List all your project paths relative to the solution root
-          - Ethik.Utility/Ethik.Utility.csproj
+          - Src/Ethik.Utility/Ethik.Utility.csproj
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 8.0.x
+        
+    - name: Restore dependencies
+      run: dotnet restore ${{ matrix.project }}
+      
+    - name: Build
+      run: dotnet build ${{ matrix.project }} --configuration Release --no-restore
+  
+  test:
+    runs-on: ubuntu-latest
+    needs: build
+
+    strategy:
+      matrix:
+        project:
+          - Tests/Ethik.Utility.Tests/Ethik.Utility.Tests.csproj
+          # Add more test projects here as needed
 
     steps:
     - name: Checkout code
@@ -35,8 +60,37 @@ jobs:
     - name: Build
       run: dotnet build ${{ matrix.project }} --configuration Release --no-restore
 
+    - name: Test
+      run: |
+        dotnet test ${{ matrix.project }} --configuration Release --no-build --collect:"XPlat Code Coverage"
+        # Move the coverage report to a known location
+        mkdir -p coverage
+        cp $(find . -name '*.xml') coverage/
+
+  pack-and-publish:
+    runs-on: ubuntu-latest
+    needs: [build, test]
+
+    strategy:
+      matrix:
+        project:
+          # List all your project paths relative to the solution root
+          - Src/Ethik.Utility/Ethik.Utility.csproj
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 8.0.x
+
     - name: Pack the project
-      run: dotnet pack ${{ matrix.project }} --configuration Release --no-build --output ./nupkg
+      run: |
+        mkdir -p ./nupkg
+        dotnet pack ${{ matrix.project }} --configuration Release --no-build --output ./nupkg
+        # Add commands to pack other projects if needed
 
     - name: Publish NuGet package
       run: dotnet nuget push "./nupkg/*.nupkg" --source "https://api.nuget.org/v3/index.json" --api-key ${{ secrets.NUGET_API_KEY }}
