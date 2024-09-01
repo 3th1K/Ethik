@@ -20,7 +20,7 @@ namespace Ethik.Utility.Password.Tests
 
             // Assert
             Assert.IsNotNull(hashedPassword);
-            Assert.IsFalse(hashedPassword.Contains("."));
+            Assert.IsTrue(hashedPassword.Contains("."));
         }
 
         [Test]
