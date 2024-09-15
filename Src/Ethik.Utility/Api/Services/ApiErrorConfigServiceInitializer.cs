@@ -53,7 +53,7 @@ internal class ApiErrorConfigServiceInitializer : IHostedService
     /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
     public Task StopAsync(CancellationToken cancellationToken)
     {
-        _apiErrorConfigService.Dispose();
+        _apiErrorConfigService.DisposeObject();
         return Task.CompletedTask;
     }
 }

@@ -12,9 +12,9 @@ namespace Ethik.Utility.Jwt.Helpers.Tests
     [TestFixture]
     public class JwtTokenServiceTests
     {
-        private Mock<IOptions<JwtSettings>> _mockJwtSettings;
-        private JwtSettings _jwtSettings;
-        private JwtTokenService _sut;
+        private Mock<IOptions<JwtSettings>> _mockJwtSettings = null!;
+        private JwtSettings _jwtSettings = null!;
+        private JwtTokenService _sut = null!;
 
         [SetUp]
         public void Setup() 

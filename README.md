@@ -14,6 +14,13 @@ The `Ethik.Utility` NuGet package provides a set of utilities for handling commo
       - **Sorting**: Order results by a specified field in ascending or descending order.
       - **Pagination**: Controls the page number and page size for efficient data retrieval.
       - **Performance Optimization**: Uses `AsNoTracking` for better performance on read-only queries.
+- **`DbContext Extensions`**:
+  - **`Add entity with auto id`**:
+    - **`AddEntityWithAutoIdAsync<TEntity>`**: Adds an entity to the `DbContext` with an auto-generated ID. The ID is generated based on a specified property and an optional custom prefix.
+      - **SettingId**: Set auto generated Id.
+      - **Get member expression**: Get the id member for the entity.
+      - **Generate prefix from type name**: Generate prefix for the id from the element name.
+      - **Generate id with prefix**: Using the prefix, generate id using current datetime value e.g. *prefix + yyMMddHHmmssff*.
 
 ### **Collections**
    - **`Paged List`**: Represents a paginated list of items with metadata about the current page, total count, and navigation links.
@@ -21,7 +28,7 @@ The `Ethik.Utility` NuGet package provides a set of utilities for handling commo
 ### **Tasks**
 - **`Task Extensions`**:
   - **`First Non-Null Result`**:
-    - **`WhenAnyNotNull<T>`**: Returns the first successfully completed task with a non-null result from a collection of tasks or `null` if no such task exists. Features include:
+    - **`WhenAnyNotNullAsync<T>`**: Returns the first successfully completed task with a non-null result from a collection of tasks or `null` if no such task exists. Features include:
       - **Error Propagation**: Handles and propagates exceptions from failed tasks.
       - **Null Handling**: Ignores tasks that complete with a `null` result.
       - **Efficiency**: Processes tasks efficiently by waiting for the first valid result or all tasks to complete.
@@ -364,7 +371,7 @@ Provides extension methods for configuring services in the `IServiceCollection`.
       services.AddSwaggerGenWithAuth();
       ```
 
-#### Example Configuration
+#### Example Usage
 
 ```csharp
 // Program.cs or Startup.cs
@@ -381,6 +388,52 @@ public class Startup
 
     // Other methods...
 }
+```
+
+### `DbContextExtensions` Class
+The `DbContextExtensions` class provides extension methods for the `DbContext` class in Entity Framework Core, adding additional functionality such as auto-generating IDs for entities with optional prefixes.
+
+#### Methods
+
+- **`AddEntityWithAutoIdAsync<TEntity>`**:
+    - **Description**: Adds an entity to the `DbContext` with an auto-generated ID. The ID is generated based on a specified property and an optional custom prefix.
+    - **Type Parameters**:
+        - `T`: The type of the entity.
+    - **Parameters**:
+        - `DbContext context`: The `DbContext` instance in which the entity will be added.
+        - `TEntity entity`: The entity to be added.
+        - `Expression<Func<TEntity, object>> idPropertyExpression`: The expression representing the ID property of the entity.
+        - `string? customPrefix`: Optional custom prefix for the ID. If not provided, a prefix is generated from the entity type name.
+    - **Example Usage**:
+      ```csharp
+      // In a repository or service class
+      public class Product
+      {
+        public string Id { get; set; }
+        public string Name { get; set; }
+      }
+
+      var context = new MyDbContext();
+      var product = new Product { Name = "Sample Product" };
+
+      // Add product with an auto-generated ID
+      await context.AddEntityWithAutoIdAsync(product, p => p.Id, "PROD");
+      ```
+
+#### Example Usage
+
+```csharp
+public class Product
+{
+    public string Id { get; set; }
+    public string Name { get; set; }
+}
+
+var context = new MyDbContext();
+var product = new Product { Name = "Sample Product" };
+
+// Add product with an auto-generated ID
+await context.AddEntityWithAutoIdAsync(product, p => p.Id, "PROD");
 ```
 
 ### `DbSetExtensions` Class
@@ -422,7 +475,7 @@ Provides extension methods for working with `DbSet<TEntity>` in Entity Framework
       }
       ```
 
-#### Example Configuration
+#### Example Usage
 
 ```csharp
 // In a service or repository
@@ -460,7 +513,7 @@ Provides extension methods for working with tasks.
 
 #### Methods
 
-- **`WhenAnyNotNull<T>(this IEnumerable<Task<T?>> tasks)`**:
+- **`WhenAnyNotNullAsync<T>(this IEnumerable<Task<T?>> tasks)`**:
     - **Description**: Returns the first successfully completed task that is not null from a collection of tasks, or null if no such task exists.
     - **Type Parameters**:
         - `T`: The type of the task result. Must be a class (reference type).
@@ -482,13 +535,13 @@ Provides extension methods for working with tasks.
           };
 
           // Get the first non-null result
-          var result = await tasks.WhenAnyNotNull();
+          var result = await tasks.WhenAnyNotNullAsync();
 
           return result;
       }
       ```
 
-#### Example Configuration
+#### Example Usage
 
 ```csharp
 // Define your class and method that uses the extension method
@@ -511,7 +564,7 @@ public class MyService
         };
 
         // Get the first non-null result
-        var result = await tasks.WhenAnyNotNull();
+        var result = await tasks.WhenAnyNotNullAsync();
 
         return result;
     }

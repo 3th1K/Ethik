@@ -18,6 +18,7 @@ internal class ApiErrorConfigService
     private static bool _initialized = false;
     private readonly FileSystemWatcher _fileWatcher;
     private bool _disposed = false;
+    private static readonly object _lock = new object();
 
     /// <summary>
     /// Initializes a new instance of the <see cref="ApiErrorConfigService"/> class.
@@ -54,8 +55,17 @@ internal class ApiErrorConfigService
     /// </summary>
     public void Initialize()
     {
-        LoadErrorsFromJson(_jsonFilePath);
-        _initialized = true;
+        if (!_initialized)
+        {
+            lock (_lock)
+            {
+                if (!_initialized)
+                {
+                    LoadErrorsFromJson(_jsonFilePath);  // Instance-specific data used in thread-safe initialization
+                    _initialized = true;
+                }
+            }
+        }
     }
 
     /// <summary>
@@ -159,7 +169,7 @@ internal class ApiErrorConfigService
     /// <summary>
     /// Disposes of the <see cref="ApiErrorConfigService"/> and performs any necessary cleanup.
     /// </summary>
-    public void Dispose()
+    public void DisposeObject()
     {
         if (!_disposed)
         {

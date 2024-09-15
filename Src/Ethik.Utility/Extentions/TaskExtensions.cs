@@ -14,7 +14,7 @@ public static class TaskExtensions
     /// A task that represents the first successfully completed task with a non-null result.
     /// If all tasks complete without a non-null result, returns null.
     /// </returns>
-    public static async Task<T?> WhenAnyNotNull<T>(this IEnumerable<Task<T?>> tasks) where T : class
+    public static async Task<T?> WhenAnyNotNullAsync<T>(this IEnumerable<Task<T?>> tasks, CancellationToken cancellationToken) where T : class
     {
         // Convert the IEnumerable of tasks into a List for easier manipulation.
         var taskList = tasks.ToList();
@@ -39,13 +39,13 @@ public static class TaskExtensions
                     var exception = t.Exception;
                     taskCompletionSource.TrySetException(exception);
                 }
-            }, TaskContinuationOptions.ExecuteSynchronously);
+            }, cancellationToken, TaskContinuationOptions.ExecuteSynchronously, TaskScheduler.Default);
         }
 
         // Wait for either the TaskCompletionSource's task to complete or all tasks to complete with null results.
         return await await Task.WhenAny(
             taskCompletionSource.Task,
-            Task.WhenAll(taskList).ContinueWith(_ => (T?)null)
+            Task.WhenAll(taskList).ContinueWith(_ => (T?)null, TaskScheduler.Default)
         );
     }
 }
