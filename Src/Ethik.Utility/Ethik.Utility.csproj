@@ -7,7 +7,8 @@
     <Title>Ethik.Utility</Title>
     <Description>The Utility NuGet Package provides essential utilities for .NET applications, focusing on streamlined error handling and standardized API responses/models. This package is designed to help developers with premade tools and utilities that can be used in any projects and errors efficiently, with a focus on configurability and ease of integration.</Description>
     <PackageProjectUrl>https://www.nuget.org/packages/Ethik.Utility</PackageProjectUrl>
-    <Version>1.0.6</Version>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <Version>1.0.61</Version>
 	  <Authors>Mehedi Rahaman</Authors>
   </PropertyGroup>
 
@@ -19,6 +20,7 @@
     <PackageReference Include="Microsoft.OpenApi" Version="1.6.19" />
     <PackageReference Include="Serilog" Version="4.0.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.7.3" />
+    <None Include="..\..\README.md" Pack="true" PackagePath="\"/>
   </ItemGroup>
 
 </Project>
