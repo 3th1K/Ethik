@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <Title>Ethik.Utility.Data</Title>
+    <Description>This NuGet package provides a set of utilities for handling tasks related to data in .NET applications. It includes collections, results, repositories, and other userful repositories</Description>
+    <PackageProjectUrl>https://www.nuget.org/packages/Ethik.Utility.Data</PackageProjectUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <Version>1.0.0</Version>
+    <Authors>Mehedi Rahaman</Authors>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <NoWarn>$(NoWarn);S125</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.8" />
+  </ItemGroup>
+
+</Project>
