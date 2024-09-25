@@ -65,9 +65,9 @@ public class JwtTokenService
     /// Retrieves details about the provided JWT token.
     /// </summary>
     /// <param name="token">The JWT token to extract details from.</param>
-    /// <returns>A <see cref="JwtTokenResponse"/> object containing token details such as expiration and type.</returns>
+    /// <returns>A <see cref="JwtTokenDetails"/> object containing token details such as expiration and type.</returns>
     /// <exception cref="ArgumentException">Thrown when the provided token is invalid.</exception>
-    public JwtTokenResponse GetTokenDetails(string token)
+    public JwtTokenDetails GetTokenDetails(string token)
     {
         var tokenHandler = new JwtSecurityTokenHandler();
         var jwtToken = tokenHandler.ReadJwtToken(token);
@@ -82,6 +82,6 @@ public class JwtTokenService
         var tokenType = "Bearer";
 
         // Return the details of the token.
-        return new JwtTokenResponse(token, expiration, tokenType);
+        return new JwtTokenDetails(token, expiration, tokenType);
     }
 }
