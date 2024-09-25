@@ -7,13 +7,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{7404A3C2
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Src", "Src", "{CCA1F008-9289-429B-8FB5-7A38B1B88049}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ethik.Utility.Api", "Src\Ethik.Utility.Api\Ethik.Utility.Api.csproj", "{351D05B4-975C-44E8-A126-0F24E6D9D99B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ethik.Utility.Api", "Src\Ethik.Utility.Api\Ethik.Utility.Api.csproj", "{351D05B4-975C-44E8-A126-0F24E6D9D99B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ethik.Utility.Data", "Src\Ethik.Utility.Data\Ethik.Utility.Data.csproj", "{025143E5-4296-4CF3-A8E8-59A858F2C58B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ethik.Utility.Data", "Src\Ethik.Utility.Data\Ethik.Utility.Data.csproj", "{025143E5-4296-4CF3-A8E8-59A858F2C58B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ethik.Utility.Security", "Src\Ethik.Utility.Security\Ethik.Utility.Security.csproj", "{43400511-D2D7-4A19-8484-96E2F8F0422C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ethik.Utility.Security", "Src\Ethik.Utility.Security\Ethik.Utility.Security.csproj", "{43400511-D2D7-4A19-8484-96E2F8F0422C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ethik.Utility.Common", "Src\Ethik.Utility.Common\Ethik.Utility.Common.csproj", "{697282BB-03B7-4FA1-821A-378D614207C0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ethik.Utility.Common", "Src\Ethik.Utility.Common\Ethik.Utility.Common.csproj", "{697282BB-03B7-4FA1-821A-378D614207C0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ethik.Utility.SecurityTests", "Tests\Ethik.Utility.SecurityTests\Ethik.Utility.SecurityTests.csproj", "{4314A022-2F6E-498C-A382-7759E9C69799}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ethik.Utility.DataTests", "Tests\Ethik.Utility.DataTests\Ethik.Utility.DataTests.csproj", "{3D1AAE6E-FFF8-4F64-BD4C-83C9413F5625}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,6 +41,14 @@ Global
 		{697282BB-03B7-4FA1-821A-378D614207C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{697282BB-03B7-4FA1-821A-378D614207C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{697282BB-03B7-4FA1-821A-378D614207C0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4314A022-2F6E-498C-A382-7759E9C69799}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4314A022-2F6E-498C-A382-7759E9C69799}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4314A022-2F6E-498C-A382-7759E9C69799}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4314A022-2F6E-498C-A382-7759E9C69799}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D1AAE6E-FFF8-4F64-BD4C-83C9413F5625}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D1AAE6E-FFF8-4F64-BD4C-83C9413F5625}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D1AAE6E-FFF8-4F64-BD4C-83C9413F5625}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D1AAE6E-FFF8-4F64-BD4C-83C9413F5625}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -46,6 +58,8 @@ Global
 		{025143E5-4296-4CF3-A8E8-59A858F2C58B} = {CCA1F008-9289-429B-8FB5-7A38B1B88049}
 		{43400511-D2D7-4A19-8484-96E2F8F0422C} = {CCA1F008-9289-429B-8FB5-7A38B1B88049}
 		{697282BB-03B7-4FA1-821A-378D614207C0} = {CCA1F008-9289-429B-8FB5-7A38B1B88049}
+		{4314A022-2F6E-498C-A382-7759E9C69799} = {7404A3C2-96DA-4D53-B358-BDBAB1B62CF9}
+		{3D1AAE6E-FFF8-4F64-BD4C-83C9413F5625} = {7404A3C2-96DA-4D53-B358-BDBAB1B62CF9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {63B45311-391A-4726-8BAC-DD3BE306898A}
