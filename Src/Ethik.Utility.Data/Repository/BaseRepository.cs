@@ -55,8 +55,10 @@ public abstract class BaseRepository<T, TContext> : IBaseRepository<T>
     /// Adds a new entity asynchronously.
     /// </summary>
     /// <param name="entity">The entity to add.</param>
-    /// <param name="cancellationToken">The cancellation token.</param>
-    /// <returns>The result of the operation, including the ID of the added entity.</returns>
+    /// <param name="autoId">Enable or disable auto ID generation, default is true.</param>
+    /// <param name="customPrefix">Optional custom prefix for ID generation.</param>
+    /// <param name="cancellationToken">Optional token to cancel the operation.</param>
+    /// <returns>An <see cref="OperationResult{String}"/> containing the ID of the added entity.</returns>
     public virtual async Task<OperationResult<string>> AddAsync(T entity, bool autoId = true, string? customPrefix = null, CancellationToken cancellationToken = default)
     {
         try

@@ -10,12 +10,12 @@ public static class LogExtensions
     // Application specific code
     private static string APP = "UNK";  // Unknown yet!
 
-    #region Timers
-
     public static void SetApplicationName(string appName)
     {
         APP = appName;
     }
+
+    #region Timers
 
     public static Stopwatch Start(this ILogger logger, [CallerFilePath] string callerFilePath = "", [CallerMemberName] string callerMethod = "")
     {
