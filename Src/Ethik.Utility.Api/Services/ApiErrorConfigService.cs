@@ -10,7 +10,7 @@ namespace Ethik.Utility.Api.Services;
 /// Loads error configurations from a JSON file and caches them for retrieval.
 /// Monitors the JSON file for changes and reloads the configuration if the file is updated.
 /// </summary>
-internal class ApiErrorConfigService
+public class ApiErrorConfigService
 {
     private readonly ILogger<ApiErrorConfigService> _logger;
     private readonly string _jsonFilePath;

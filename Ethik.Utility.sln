@@ -17,7 +17,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ethik.Utility.Common", "Src
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ethik.Utility.SecurityTests", "Tests\Ethik.Utility.SecurityTests\Ethik.Utility.SecurityTests.csproj", "{4314A022-2F6E-498C-A382-7759E9C69799}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ethik.Utility.DataTests", "Tests\Ethik.Utility.DataTests\Ethik.Utility.DataTests.csproj", "{3D1AAE6E-FFF8-4F64-BD4C-83C9413F5625}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ethik.Utility.DataTests", "Tests\Ethik.Utility.DataTests\Ethik.Utility.DataTests.csproj", "{3D1AAE6E-FFF8-4F64-BD4C-83C9413F5625}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ethik.Utility.CommonTests", "Tests\Ethik.Utility.CommonTests\Ethik.Utility.CommonTests.csproj", "{FC68C3E0-2D14-486B-BB45-6544D2880ABA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ethik.Utility.ApiTests", "Tests\Ethik.Utility.ApiTests\Ethik.Utility.ApiTests.csproj", "{E7683DCF-92AE-47CB-82E8-3106C49DA478}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -49,6 +53,14 @@ Global
 		{3D1AAE6E-FFF8-4F64-BD4C-83C9413F5625}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3D1AAE6E-FFF8-4F64-BD4C-83C9413F5625}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3D1AAE6E-FFF8-4F64-BD4C-83C9413F5625}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC68C3E0-2D14-486B-BB45-6544D2880ABA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC68C3E0-2D14-486B-BB45-6544D2880ABA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC68C3E0-2D14-486B-BB45-6544D2880ABA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC68C3E0-2D14-486B-BB45-6544D2880ABA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E7683DCF-92AE-47CB-82E8-3106C49DA478}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E7683DCF-92AE-47CB-82E8-3106C49DA478}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E7683DCF-92AE-47CB-82E8-3106C49DA478}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E7683DCF-92AE-47CB-82E8-3106C49DA478}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -60,6 +72,8 @@ Global
 		{697282BB-03B7-4FA1-821A-378D614207C0} = {CCA1F008-9289-429B-8FB5-7A38B1B88049}
 		{4314A022-2F6E-498C-A382-7759E9C69799} = {7404A3C2-96DA-4D53-B358-BDBAB1B62CF9}
 		{3D1AAE6E-FFF8-4F64-BD4C-83C9413F5625} = {7404A3C2-96DA-4D53-B358-BDBAB1B62CF9}
+		{FC68C3E0-2D14-486B-BB45-6544D2880ABA} = {7404A3C2-96DA-4D53-B358-BDBAB1B62CF9}
+		{E7683DCF-92AE-47CB-82E8-3106C49DA478} = {7404A3C2-96DA-4D53-B358-BDBAB1B62CF9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {63B45311-391A-4726-8BAC-DD3BE306898A}

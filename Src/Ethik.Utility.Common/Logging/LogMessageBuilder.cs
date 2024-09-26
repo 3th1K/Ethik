@@ -10,7 +10,7 @@ namespace Ethik.Utility.Common.Logging;
 /// This class allows for flexible construction of log messages by chaining method calls.
 /// It supports building log messages in both plain text and JSON formats.
 /// </remarks>
-public class LogMessageBuilder
+public class LogMessageBuilder : ILogMessageBuilder
 {
     private string _app = "";
     private string _callerMethod = "";
@@ -29,8 +29,8 @@ public class LogMessageBuilder
     /// Sets the application name for the log message.
     /// </summary>
     /// <param name="appName">The name of the application.</param>
-    /// <returns>The current instance of <see cref="LogMessageBuilder"/> for chaining.</returns>
-    public LogMessageBuilder WithApp(string appName)
+    /// <returns>The current instance of <see cref="ILogMessageBuilder"/> for chaining.</returns>
+    public ILogMessageBuilder WithApp(string appName)
     {
         _app = $"[{appName}] ";
         return this;
@@ -40,8 +40,8 @@ public class LogMessageBuilder
     /// Sets the caller method name for the log message.
     /// </summary>
     /// <param name="methodName">The name of the method that is calling this logger.</param>
-    /// <returns>The current instance of <see cref="LogMessageBuilder"/> for chaining.</returns>
-    public LogMessageBuilder WithCallerMethod(string methodName)
+    /// <returns>The current instance of <see cref="ILogMessageBuilder"/> for chaining.</returns>
+    public ILogMessageBuilder WithCallerMethod(string methodName)
     {
         _callerMethod = $"[Method: {methodName}] ";
         return this;
@@ -51,8 +51,8 @@ public class LogMessageBuilder
     /// Sets the caller class name for the log message.
     /// </summary>
     /// <param name="filePath">The file path of the caller class.</param>
-    /// <returns>The current instance of <see cref="LogMessageBuilder"/> for chaining.</returns>
-    public LogMessageBuilder WithCallerClass(string filePath)
+    /// <returns>The current instance of <see cref="ILogMessageBuilder"/> for chaining.</returns>
+    public ILogMessageBuilder WithCallerClass(string filePath)
     {
         _callerClass = $"[Class: {JustClass(filePath)}] ";
         return this;
@@ -63,8 +63,8 @@ public class LogMessageBuilder
     /// </summary>
     /// <param name="methodName">The name of the method that is calling this logger.</param>
     /// <param name="filepath">The file path of the caller class.</param>
-    /// <returns>The current instance of <see cref="LogMessageBuilder"/> for chaining.</returns>
-    public LogMessageBuilder WithCallerMethodAndClass(string methodName, string filepath)
+    /// <returns>The current instance of <see cref="ILogMessageBuilder"/> for chaining.</returns>
+    public ILogMessageBuilder WithCallerMethodAndClass(string methodName, string filepath)
     {
         _callerMethodAndClass = $"({methodName} -> {JustClass(filepath)}) ";
         return this;
@@ -74,8 +74,8 @@ public class LogMessageBuilder
     /// Sets the log message content.
     /// </summary>
     /// <param name="logMessage">The message to log.</param>
-    /// <returns>The current instance of <see cref="LogMessageBuilder"/> for chaining.</returns>
-    public LogMessageBuilder WithMessage(string logMessage)
+    /// <returns>The current instance of <see cref="ILogMessageBuilder"/> for chaining.</returns>
+    public ILogMessageBuilder WithMessage(string logMessage)
     {
         if (!string.IsNullOrWhiteSpace(logMessage))
         {
@@ -88,8 +88,8 @@ public class LogMessageBuilder
     /// Sets the elapsed time for the operation being logged.
     /// </summary>
     /// <param name="milliseconds">The time elapsed in milliseconds.</param>
-    /// <returns>The current instance of <see cref="LogMessageBuilder"/> for chaining.</returns>
-    public LogMessageBuilder WithElapsedTime(long milliseconds)
+    /// <returns>The current instance of <see cref="ILogMessageBuilder"/> for chaining.</returns>
+    public ILogMessageBuilder WithElapsedTime(long milliseconds)
     {
         _elapsed = $"[Elapsed: {milliseconds.ToString()}ms] ";
         return this;
@@ -99,8 +99,8 @@ public class LogMessageBuilder
     /// Sets the user performing the action in the log message.
     /// </summary>
     /// <param name="username">The username of the user.</param>
-    /// <returns>The current instance of <see cref="LogMessageBuilder"/> for chaining.</returns>
-    public LogMessageBuilder WithUser(string username)
+    /// <returns>The current instance of <see cref="ILogMessageBuilder"/> for chaining.</returns>
+    public ILogMessageBuilder WithUser(string username)
     {
         _user = $"[User: {username}] ";
         return this;
@@ -110,8 +110,8 @@ public class LogMessageBuilder
     /// Sets contextual information for the log message.
     /// </summary>
     /// <param name="logContext">The context of the log entry.</param>
-    /// <returns>The current instance of <see cref="LogMessageBuilder"/> for chaining.</returns>
-    public LogMessageBuilder WithContext(string logContext)
+    /// <returns>The current instance of <see cref="ILogMessageBuilder"/> for chaining.</returns>
+    public ILogMessageBuilder WithContext(string logContext)
     {
         _context = $"[Context: {logContext}] ";
         return this;
@@ -121,8 +121,8 @@ public class LogMessageBuilder
     /// Adds a correlation ID to the contextual information of the log message.
     /// </summary>
     /// <param name="correlationId">The correlation ID for tracking.</param>
-    /// <returns>The current instance of <see cref="LogMessageBuilder"/> for chaining.</returns>
-    public LogMessageBuilder WithCorrelationId(string correlationId)
+    /// <returns>The current instance of <see cref="ILogMessageBuilder"/> for chaining.</returns>
+    public ILogMessageBuilder WithCorrelationId(string correlationId)
     {
         _context = $"[CorrelationId: {correlationId}] " + _context;
         return this;
@@ -132,8 +132,8 @@ public class LogMessageBuilder
     /// Sets the log severity level.
     /// </summary>
     /// <param name="logSeverity">The severity of the log (e.g., Info, Warning, Error).</param>
-    /// <returns>The current instance of <see cref="LogMessageBuilder"/> for chaining.</returns>
-    public LogMessageBuilder WithSeverity(string logSeverity)
+    /// <returns>The current instance of <see cref="ILogMessageBuilder"/> for chaining.</returns>
+    public ILogMessageBuilder WithSeverity(string logSeverity)
     {
         _severity = logSeverity;
         return this;
@@ -144,8 +144,8 @@ public class LogMessageBuilder
     /// </summary>
     /// <param name="property">The name of the property.</param>
     /// <param name="value">The value of the property.</param>
-    /// <returns>The current instance of <see cref="LogMessageBuilder"/> for chaining.</returns>
-    public LogMessageBuilder WithProperty(string property, string value)
+    /// <returns>The current instance of <see cref="ILogMessageBuilder"/> for chaining.</returns>
+    public ILogMessageBuilder WithProperty(string property, string value)
     {
         if (!string.IsNullOrWhiteSpace(property) && !string.IsNullOrWhiteSpace(value))
         {
@@ -158,8 +158,8 @@ public class LogMessageBuilder
     /// Sets exception details to be included in the log message.
     /// </summary>
     /// <param name="ex">The exception to log.</param>
-    /// <returns>The current instance of <see cref="LogMessageBuilder"/> for chaining.</returns>
-    public LogMessageBuilder WithException(Exception ex)
+    /// <returns>The current instance of <see cref="ILogMessageBuilder"/> for chaining.</returns>
+    public ILogMessageBuilder WithException(Exception ex)
     {
         if (ex != null)
         {
@@ -172,8 +172,8 @@ public class LogMessageBuilder
     /// Sets the line number where the log entry was created.
     /// </summary>
     /// <param name="line">The line number in the source code.</param>
-    /// <returns>The current instance of <see cref="LogMessageBuilder"/> for chaining.</returns>
-    public LogMessageBuilder WithLineNumber(int line)
+    /// <returns>The current instance of <see cref="ILogMessageBuilder"/> for chaining.</returns>
+    public ILogMessageBuilder WithLineNumber(int line)
     {
         _lineNumber = $"[At Line: {line}] ";
         return this;

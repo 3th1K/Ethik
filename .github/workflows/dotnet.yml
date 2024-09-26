@@ -44,8 +44,10 @@ jobs:
     strategy:
       matrix:
         project:
-          - Tests/Ethik.Utility.Tests/Ethik.Utility.Tests.csproj
-          # Add more test projects here as needed
+          - Tests/Ethik.Utility.ApiTestsTests/Ethik.Utility.ApiTests.csproj
+          - Tests/Ethik.Utility.CommonTests/Ethik.Utility.CommonTests.csproj
+          - Tests/Ethik.Utility.DataTests/Ethik.Utility.DataTests.csproj
+          - Tests/Ethik.Utility.SecurityTests/Ethik.Utility.SecurityTests.csproj
 
     steps:
     - name: Checkout code

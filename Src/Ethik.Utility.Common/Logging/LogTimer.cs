@@ -14,7 +14,7 @@ public class LogTimer : IDisposable
 {
     private readonly ILogger _logger;
     private readonly LogLevel _level;
-    private readonly LogMessageBuilder _endMessageBuilder;
+    private readonly ILogMessageBuilder _endMessageBuilder;
     private readonly Stopwatch _stopwatch;
 
     // Flag to detect redundant calls
@@ -28,7 +28,7 @@ public class LogTimer : IDisposable
     /// <param name="startMessage">The message to log when the timer starts.</param>
     /// <param name="endMessageBuilder">The <see cref="LogMessageBuilder"/> used to construct the end message.</param>
     /// <exception cref="ArgumentNullException">Thrown when <paramref name="logger"/> is null.</exception>
-    public LogTimer(ILogger logger, LogLevel logLevel, string startMessage, LogMessageBuilder endMessageBuilder)
+    public LogTimer(ILogger logger, LogLevel logLevel, string startMessage, ILogMessageBuilder endMessageBuilder)
     {
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         _level = logLevel;
