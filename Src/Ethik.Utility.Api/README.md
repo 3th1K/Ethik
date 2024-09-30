@@ -18,14 +18,15 @@ The `Ethik.Utility.Api` NuGet package provides a set of utilities for handling A
 You can install the package via NuGet Package Manager or by running the following command in the Package Manager Console:
 
 ```bash
-Install-Package Ethik.Utility
+Install-Package Ethik.Utility.Api
 ```
 
 Or, add the package to your .csproj file:
 
 ```bash
-<PackageReference Include="Ethik.Utility" Version="1.0.0" />
+<PackageReference Include="Ethik.Utility.Api" Version="1.0.0" />
 ```
+
 ## Components
 
 ### `ApiError` Class
